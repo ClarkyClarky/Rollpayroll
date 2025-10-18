@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll Display | Computation</title>
+  <link rel="stylesheet" href="display.css">
+</head>
+<body>
+  <div class="card">
+    <h2>Payroll Program</h2>
+
+    <table>
+      <tr><th colspan="2">Employee Details</th></tr>
+      <tr><td>ID:</td><td id="empId"></td></tr>
+      <tr><td>Name:</td><td id="empName"></td></tr>
+      <tr><td>Daily Rate:</td><td id="rate"></td></tr>
+      <tr><td>Days Worked:</td><td id="days"></td></tr>
+
+      <tr><th colspan="2">Computation</th></tr>
+      <tr><td>Gross Pay:</td><td id="gross"></td></tr>
+      <tr><td>SSS (5%):</td><td id="sss"></td></tr>
+      <tr><td>Pag-ibig (3%):</td><td id="pagibig"></td></tr>
+      <tr><td>Philhealth (2%):</td><td id="philhealth"></td></tr>
+      <tr><td>Tax (5%):</td><td id="tax"></td></tr>
+      <tr class="highlight"><td>Total Deductions:</td><td id="totalDeduction"></td></tr>
+      <tr class="highlight"><td>Net Pay:</td><td id="netPay"></td></tr>
+    </table>
+
+    <div class="button-group">
+      <a href="main.html" class="back-btn">← Back to Input Page</a>
+      
+    </div>
+  </div>
+
+  <script>
+    window.onload = function() {
+      // Get stored data
+      const id = localStorage.getItem("id");
+      const name = localStorage.getItem("name");
+      const rate = parseFloat(localStorage.getItem("rate"));
+      const days = parseFloat(localStorage.getItem("days"));
+
+      if (!id || !name || isNaN(rate) || isNaN(days)) {
+        document.querySelector(".card").innerHTML = "<p>No payroll data found.</p>";
+        return;
+      }
+
+      // Computation
+      const gross = rate * days;
+      const sss = gross * 0.05;
+      const pagibig = gross * 0.03;
+      const philhealth = gross * 0.02;
+      const tax = gross * 0.05;
+      const totalDeduction = sss + pagibig + philhealth + tax;
+      const netPay = gross - totalDeduction;
+
+      // Display
+      document.getElementById("empId").textContent = id;
+      document.getElementById("empName").textContent = name;
+      document.getElementById("rate").textContent = "₱ " + rate.toFixed(2);
+      document.getElementById("days").textContent = days;
+      document.getElementById("gross").textContent = "₱ " + gross.toFixed(2);
+      document.getElementById("sss").textContent = "₱ " + sss.toFixed(2);
+      document.getElementById("pagibig").textContent = "₱ " + pagibig.toFixed(2);
+      document.getElementById("philhealth").textContent = "₱ " + philhealth.toFixed(2);
+      document.getElementById("tax").textContent = "₱ " + tax.toFixed(2);
+      document.getElementById("totalDeduction").textContent = "₱ " + totalDeduction.toFixed(2);
+      document.getElementById("netPay").textContent = "₱ " + netPay.toFixed(2);
+    };
+
+    function clearData() {
+      localStorage.clear();
+      alert("Payroll data cleared!");
+      window.location.href = "main.html";
+    }
+  </script>
+</body>
+</html>

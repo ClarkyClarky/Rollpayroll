@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll Input | Main Page</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div class="card">
+    <h2>Payroll Program</h2>
+
+    <form id="payrollForm">
+      <label for="id">Employee ID:</label>
+      <input type="text" id="id" placeholder="Enter ID" required>
+
+      <label for="name">Employee Name:</label>
+      <input type="text" id="name" placeholder="Enter employee name" required>
+
+      <label for="rate">Daily Rate:</label>
+      <input type="number" id="rate" placeholder="Enter daily rate" required>
+
+      <label for="days">Days Worked:</label>
+      <input type="number" id="days" placeholder="Enter days worked" required>
+
+      <button type="button" onclick="computePayroll()">Compute Payroll</button>
+    </form>
+  </div>
+
+  <script>
+    function computePayroll() {
+      const id = document.getElementById("id").value;
+      const name = document.getElementById("name").value;
+      const rate = parseFloat(document.getElementById("rate").value);
+      const days = parseFloat(document.getElementById("days").value);
+
+      if (!id || !name || isNaN(rate) || isNaN(days)) {
+        alert("Please fill out all fields correctly.");
+        return;
+      }
+
+      // Save to localStorage
+      localStorage.setItem("id", id);
+      localStorage.setItem("name", name);
+      localStorage.setItem("rate", rate);
+      localStorage.setItem("days", days);
+
+      /
